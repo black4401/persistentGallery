@@ -10,14 +10,27 @@ import UIKit
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
+    private let path = "Untitled.gallery"
+    private let mainStoryboard = "Main"
+    private let navigationVC = "DocumentNavigationVC"
+    private var template: URL?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
         
-        allowsDocumentCreation = true
+        allowsDocumentCreation = false
         allowsPickingMultipleItems = false
         
+        template = try? FileManager.default.url(for: .applicationSupportDirectory,
+                                                in: .userDomainMask,
+                                                appropriateFor: nil,
+                                                create: true).appending(path: path)
+        if let template = template {
+            allowsDocumentCreation = FileManager.default.createFile(atPath: template.path,
+                                                                    contents: Data())
+        }
         // Update the style of the UIDocumentBrowserViewController
         // browserUserInterfaceStyle = .dark
         // view.tintColor = .white
@@ -31,15 +44,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     // MARK: UIDocumentBrowserViewControllerDelegate
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
-        let newDocumentURL: URL? = nil
-        
-        // Set the URL for the new document here. Optionally, you can present a template chooser before calling the importHandler.
-        // Make sure the importHandler is always called, even if the user cancels the creation request.
-        if newDocumentURL != nil {
-            importHandler(newDocumentURL, .move)
-        } else {
-            importHandler(nil, .none)
-        }
+     
+        importHandler(template, .copy)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
@@ -56,6 +62,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
+        let alert = Alert.create(title: "Failed import file!")
+        present(alert, animated: true)
         // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
     }
     
@@ -63,12 +71,19 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     
     func presentDocument(at documentURL: URL) {
         
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
-        documentViewController.document = Document(fileURL: documentURL)
-        documentViewController.modalPresentationStyle = .fullScreen
+        let storyBoard = UIStoryboard(name: mainStoryboard, bundle: nil)
+        guard let documentVC = storyBoard.instantiateViewController(withIdentifier: navigationVC) as? UINavigationController else {
+            return
+        }
+        if let galleryVC = documentVC.visibleViewController as? ImageGalleryCollectionViewController {
+            galleryVC.galleryDocument = GalleryDocument(fileURL: documentURL)
+        }
+        documentVC.modalPresentationStyle = .fullScreen
+//        let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
+//        documentViewController.document = GalleryDocument(fileURL: documentURL)
+//        documentViewController.modalPresentationStyle = .fullScreen
         
-        present(documentViewController, animated: true, completion: nil)
+        present(documentVC, animated: true)
     }
 }
 
