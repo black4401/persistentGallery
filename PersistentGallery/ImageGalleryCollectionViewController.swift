@@ -10,11 +10,6 @@ import UIKit
 
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate  {
     
-    struct Constants {
-        static let columnCount = 3.0
-        static let minWidthRation = CGFloat(0.03)
-    }
-    
     var imageCollection: FolderModel = FolderModel()
     var galleryDocument: GalleryDocument?
     private var indexPathsForDragging: [IndexPath] = []
@@ -145,15 +140,15 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
             imageLoadingGroup.leave()
         }
         
-                imageLoadingGroup.enter()
-                item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (itemProvider, error) in
-                    if let loadedImage = itemProvider as? UIImage {
-                        image = loadedImage
-                    } else {
-                        placeholderContext.deletePlaceholder()
-                    }
-                    imageLoadingGroup.leave()
-                }
+        imageLoadingGroup.enter()
+        item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (itemProvider, error) in
+            if let loadedImage = itemProvider as? UIImage {
+                image = loadedImage
+            } else {
+                placeholderContext.deletePlaceholder()
+            }
+            imageLoadingGroup.leave()
+        }
         
         imageLoadingGroup.notify(queue: DispatchQueue.main) { [weak self] in
             let aspectRatio = image!.size.height / image!.size.width
@@ -161,6 +156,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
             
             placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
                 self?.imageCollection.images.insert(imageData, at: insertionIndexPath.item)
+                print("Inserting date to model: \(imageData.url)")
             })
         }
     }
@@ -193,13 +189,22 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         }
     }
     private func updateCellImage(cell: ImageGalleryCollectionViewCell, indexPath: IndexPath) {
+        
         let imageURL = imageCollection.images[indexPath.item].url
-        let imageData = try? Data(contentsOf: imageURL)
-        guard let image = UIImage(data: imageData!) else {
-            return
+//        let imageData = try? Data(contentsOf: imageURL)
+        
+        cell.configure(with: imageURL) {
+            self.showNoImageAlert(at: indexPath)
         }
-        cell.cellImage = image
-        cell.imageURL = imageURL
+        
+//        guard let image = UIImage(data: imageData!) else {
+//            return
+//        }
+//        cell.cellImage = image
+//        cell.imageURL = imageURL
+//        cell.configure(with: imageURL) {
+//            self.showNoImageAlert(at: indexPath)
+//        }
         
     }
 }
@@ -225,6 +230,13 @@ extension ImageGalleryCollectionViewController {
             let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
             self?.navigationController?.navigationBar.titleTextAttributes = textAttributes
         }
+    }
+    func showNoImageAlert(at indexPath: IndexPath) {
+        imageCollection.images.remove(at: indexPath.row)
+        let okAction = Alert.createAction(.ok)
+            let actions = [okAction]
+            let alert = Alert.create(title: "Could not load image.", actions: actions)
+            present(alert, animated: true)
     }
 }
 

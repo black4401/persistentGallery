@@ -30,13 +30,8 @@ extension ImageModel: Codable {
 struct FolderModel: Hashable {
     
     var id = UUID()
-    //var name: String = "Untitled"
-    //var isDeleted: Bool = false
     var images: [ImageModel] = []
     
-//    init(folderName: String) {
-//        self.name = folderName
-//    }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

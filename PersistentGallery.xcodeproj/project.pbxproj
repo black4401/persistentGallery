@@ -26,6 +26,7 @@
 		BB4E9C47296EE9CF00089E02 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E9C46296EE9CF00089E02 /* Array+Extension.swift */; };
 		BB4E9C49296EE9D200089E02 /* ImageGalleryViewController+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E9C48296EE9D200089E02 /* ImageGalleryViewController+Gestures.swift */; };
 		BB4E9C4B296EF5CC00089E02 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E9C4A296EF5CC00089E02 /* Alert.swift */; };
+		BB7516E32970CCE800C2B52C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7516E22970CCE800C2B52C /* ImageCache.swift */; };
 		BBD82F0F2970184000E4B8BF /* UIImage+JPEG.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD82F0E2970184000E4B8BF /* UIImage+JPEG.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		BB4E9C46296EE9CF00089E02 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BB4E9C48296EE9D200089E02 /* ImageGalleryViewController+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageGalleryViewController+Gestures.swift"; sourceTree = "<group>"; };
 		BB4E9C4A296EF5CC00089E02 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		BB7516E22970CCE800C2B52C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image\U0003Cache.swift"; sourceTree = "<group>"; };
 		BBD82F0E2970184000E4B8BF /* UIImage+JPEG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+JPEG.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				BB4E9C3C296EE00800089E02 /* Utilities.swift */,
 				BBD82F0E2970184000E4B8BF /* UIImage+JPEG.swift */,
 				BB4E9C42296EE9CA00089E02 /* ImageGalleryCollectionViewController.swift */,
+				BB7516E22970CCE800C2B52C /* ImageCache.swift */,
 				BB4E9C44296EE9CB00089E02 /* ImageViewController.swift */,
 				BB4E9C46296EE9CF00089E02 /* Array+Extension.swift */,
 				BB4E9C48296EE9D200089E02 /* ImageGalleryViewController+Gestures.swift */,
@@ -196,6 +199,7 @@
 				BB4E9C3D296EE00800089E02 /* Utilities.swift in Sources */,
 				BB4E9C49296EE9D200089E02 /* ImageGalleryViewController+Gestures.swift in Sources */,
 				BB4E9C47296EE9CF00089E02 /* Array+Extension.swift in Sources */,
+				BB7516E32970CCE800C2B52C /* ImageCache.swift in Sources */,
 				BB4E9C1F296EDF9D00089E02 /* DocumentViewController.swift in Sources */,
 				BB4E9C4B296EF5CC00089E02 /* Alert.swift in Sources */,
 				BB4E9C37296EDFEF00089E02 /* ImageGalleryCollectionViewCell.swift in Sources */,
