@@ -27,7 +27,7 @@
         <!--Image Gallery Collection View Controller-->
         <scene sceneID="7uT-aw-4ZT">
             <objects>
-                <collectionViewController id="Ljg-la-hUw" customClass="ImageGalleryCollectionViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="Ljg-la-hUw" customClass="ImageGalleryCollectionViewController" customModule="PersistentGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="mhX-Yp-SGN">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,7 @@
                                     </subviews>
                                 </collectionViewCellContentView>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Image Cell" id="Rtl-wv-qxd" customClass="ImageGalleryCollectionViewCell" customModule="ImageGallery" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Image Cell" id="Rtl-wv-qxd" customClass="ImageGalleryCollectionViewCell" customModule="PersistentGallery" customModuleProvider="target">
                                 <rect key="frame" x="155" y="0.0" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZV1-n3-9nt">
@@ -88,6 +88,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="6W6-gK-98l">
                         <barButtonItem key="leftBarButtonItem" systemItem="save" id="Zo2-Oo-0oC">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="clickSave:" destination="Ljg-la-hUw" id="sEi-Lb-6BR"/>
                             </connections>
@@ -123,7 +124,7 @@
         <!--Image View Controller-->
         <scene sceneID="Xso-17-qVB">
             <objects>
-                <viewController id="Zjz-QP-mGU" customClass="ImageViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zjz-QP-mGU" customClass="ImageViewController" customModule="PersistentGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qVa-1d-hTl">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

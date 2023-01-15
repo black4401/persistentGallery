@@ -12,7 +12,6 @@ struct ImageModel: Hashable {
     
     var id = UUID()
     var url: URL
-    //var image: UIImage?
     var aspectRatio: CGFloat
     
     func hash(into hasher: inout Hasher) {

@@ -9,7 +9,6 @@ import UIKit
 
 class ImageViewController: UIViewController {
     
-    
     private enum ScrollViewConstants {
         static let minimumZoom: CGFloat = 1
         static let maximumZoom: CGFloat = 4

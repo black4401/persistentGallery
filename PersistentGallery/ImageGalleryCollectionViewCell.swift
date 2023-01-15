@@ -12,7 +12,8 @@ class ImageGalleryCollectionViewCell: UICollectionViewCell {
     static var defaultWidth: CGFloat = 139
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
-
+    @IBOutlet weak var noImageLabel: UILabel!
+    @IBOutlet weak var thumbnailView: UIImageView!
     
     var imageURL: URL?
     var cellImage: UIImage? {
@@ -29,8 +30,6 @@ class ImageGalleryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var thumbnailView: UIImageView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         noImageLabel.attributedText = NSAttributedString("NO IMAGE")
@@ -39,11 +38,8 @@ class ImageGalleryCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         noImageLabel.attributedText = NSAttributedString("NO IMAGE")
+        thumbnailView.image = nil
     }
-    
-    @IBOutlet weak var noImageLabel: UILabel!
-    
-
     
     func configure(with imageURL: URL, _ completion: @escaping () -> ()) {
         thumbnailView.image = nil

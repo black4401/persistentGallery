@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension ImageGalleryCollectionViewController {
+extension ImageGalleryCollectionViewController: UICollectionViewDropDelegate, UICollectionViewDragDelegate  {
 
     func addPinchGesture() {
         let pinch = UIPinchGestureRecognizer(

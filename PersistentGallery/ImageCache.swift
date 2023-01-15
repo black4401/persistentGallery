@@ -8,8 +8,8 @@
 import UIKit
 
 struct CacheCapacity {
-    static let memory = 100000000
-    static let disk = 20000000
+    static let memory = 6 * 1024 * 1024
+    static let disk = 40 * 1024 * 1024
 }
 
 class ImageCache {

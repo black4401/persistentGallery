@@ -12,7 +12,6 @@ struct Alert {
         case ok
         case dontShowAgain
     }
-    //var handler = ((UIAlertAction) -> ()).self
     
     static func createAction(_ action: Action) -> UIAlertAction {
         switch action {
