@@ -17,11 +17,13 @@ class GalleryDocument: UIDocument {
     }
     
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
-        if let json = contents as? Data {
-            gallery = FolderModel(json: json)
-            if gallery == nil {
-                gallery = FolderModel(images: [])
-            }
+        guard let json = contents as? Data else {
+            return
+        }
+        gallery = FolderModel(json: json)
+        
+        if gallery == nil {
+            gallery = FolderModel(images: [])
         }
     }
     

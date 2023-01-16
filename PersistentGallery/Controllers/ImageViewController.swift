@@ -20,10 +20,15 @@ class ImageViewController: UIViewController {
     
     var image: UIImage!
     
+    func centerImageInView() {
+        imageView.contentMode = .center
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
         setupScrollView()
+        centerImageInView()
     }
     
     private func setupScrollView() {

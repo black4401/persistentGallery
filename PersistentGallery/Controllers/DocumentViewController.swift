@@ -19,8 +19,7 @@ class DocumentViewController: UIViewController {
         document?.open(completionHandler: { (success) in
             if success {
                 self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
-            } else {
-            }
+            } 
         })
     }
     

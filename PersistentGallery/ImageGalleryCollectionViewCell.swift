@@ -46,7 +46,7 @@ class ImageGalleryCollectionViewCell: UICollectionViewCell {
         
         activityIndicator.startAnimating()
         
-        ImageCache.shared.configureCache(from: imageURL) { [weak self] imageFromCache, url in
+        ImageCache.shared.loadOrCacheImage(from: imageURL) { [weak self] imageFromCache, url in
             
             self?.activityIndicator.stopAnimating()
             

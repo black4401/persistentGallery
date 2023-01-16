@@ -9,7 +9,7 @@ import UIKit
 
 extension ImageGalleryCollectionViewController {
     
-    private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
+    private func getDragItems(at indexPath: IndexPath) -> [UIDragItem] {
         guard (collectionView.cellForItem(at: indexPath) is ImageGalleryCollectionViewCell) else { return [] }
         
         indexPathsForDragging.append(indexPath)
@@ -23,11 +23,11 @@ extension ImageGalleryCollectionViewController {
         
         session.localContext = collectionView
         indexPathsForDragging = []
-        return dragItems(at: indexPath)
+        return getDragItems(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
-        return dragItems(at: indexPath)
+        return getDragItems(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
@@ -81,13 +81,15 @@ extension ImageGalleryCollectionViewController {
         }
         
         imageLoadingGroup.notify(queue: DispatchQueue.main) { [weak self] in
-            let aspectRatio = image!.size.height / image!.size.width
-            let imageData = ImageModel(url: imageURL!, aspectRatio: aspectRatio) // image: image!,
-            
-            placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
-                self?.imageCollection.images.insert(imageData, at: insertionIndexPath.item)
-                print("Inserting date to model: \(imageData.url)")
-            })
+            if image != nil {
+                let aspectRatio = image!.size.height / image!.size.width
+                let imageData = ImageModel(url: imageURL!, aspectRatio: aspectRatio)
+                
+                placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
+                    self?.imageCollection.images.insert(imageData, at: insertionIndexPath.item)
+                    print("Inserting data to model: \(imageData.url)")
+                })
+            }
         }
     }
     

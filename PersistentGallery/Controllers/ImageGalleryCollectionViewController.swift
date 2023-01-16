@@ -10,10 +10,13 @@ import UIKit
 
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    private let imageAlertMSG = "Could not load image."
+    private let reuseIdentifier = "Image Cell"
+    
     var imageCollection: FolderModel = FolderModel()
     var galleryDocument: GalleryDocument?
     var indexPathsForDragging: [IndexPath] = []
-    var cellScale: CGFloat = Constants.cellScale
+    var cellScale: CGFloat = 1.0
     
     var flowLayout: UICollectionViewFlowLayout? {
         return collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
@@ -22,7 +25,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     @IBOutlet weak var saveButton: UINavigationItem!
     
     @IBAction func clickSave(_ sender: UIBarButtonItem) {
-        clickSave()
+        saveGallery()
         dismiss(animated: true) {
             self.galleryDocument?.close()
         }
@@ -51,7 +54,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        clickSave()
+        saveGallery()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -64,7 +67,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         if let cell = cell as? ImageGalleryCollectionViewCell {
             addTapGestures(to: cell)
             updateCellImage(cell: cell, indexPath: indexPath)
@@ -83,7 +86,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
 
 extension ImageGalleryCollectionViewController {
     
-    private func clickSave() {
+    private func saveGallery() {
         let firstIndexPath = IndexPath(item: 0, section: 0)
         let firstCell = collectionView.cellForItem(at: firstIndexPath) as? ImageGalleryCollectionViewCell
         let image = firstCell?.thumbnailView.image
@@ -98,14 +101,15 @@ extension ImageGalleryCollectionViewController {
         cell.configure(with: imageURL) {
             self.showNoImageAlert(at: indexPath)
         }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let imageData = try? Data(contentsOf: imageURL)
-            
-            DispatchQueue.main.async {
-                cell.cellImage = UIImage(data: imageData!)
-            }
-        }
+        let imageData = try? Data(contentsOf: imageURL)
+        cell.cellImage = UIImage(data: imageData!)
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            let imageData = try? Data(contentsOf: imageURL)
+//            
+//            DispatchQueue.main.async {
+//                cell.cellImage = UIImage(data: imageData!)
+//            }
+//        }
     }
     
     private func openGalleryDocument() {
@@ -124,7 +128,7 @@ extension ImageGalleryCollectionViewController {
         imageCollection.images.remove(at: indexPath.row)
         let okAction = Alert.createAction(.ok)
         let actions = [okAction]
-        let alert = Alert.create(title: Constants.imageAlertMSG, actions: actions)
+        let alert = Alert.create(title: imageAlertMSG, actions: actions)
         present(alert, animated: true)
     }
 }

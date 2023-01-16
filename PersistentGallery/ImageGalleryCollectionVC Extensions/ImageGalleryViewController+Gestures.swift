@@ -43,9 +43,7 @@ extension ImageGalleryCollectionViewController: UICollectionViewDropDelegate, UI
     }
 
     @objc private func tap(recognizer: UITapGestureRecognizer) {
-        if let indexPath = collectionView.indexPathForItem(at: recognizer.location(in: collectionView)) {
-            let cell = collectionView.cellForItem(at: indexPath) as! ImageGalleryCollectionViewCell
-
+        if let indexPath = collectionView.indexPathForItem(at: recognizer.location(in: collectionView)), let cell = collectionView.cellForItem(at: indexPath) as? ImageGalleryCollectionViewCell {
             performSegue(withIdentifier: "Show Image", sender: cell.cellImage)
         }
     }

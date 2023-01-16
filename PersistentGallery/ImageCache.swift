@@ -27,7 +27,7 @@ class ImageCache {
         dataTask.resume()
     }
     
-    func configureCache(from imageURL: URL, _ completion: @escaping (UIImage?, URL) -> ()) {
+    func loadOrCacheImage(from imageURL: URL, _ completion: @escaping (UIImage?, URL) -> ()) {
         let request = URLRequest(url: imageURL)
         var image: UIImage?
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
