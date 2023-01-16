@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct ImageModel: Hashable {
+struct ImageModel: Hashable, Codable {
     
     var id = UUID()
     var url: URL
@@ -22,36 +22,5 @@ struct ImageModel: Hashable {
         lhs.id == rhs.id
     }
 }
-extension ImageModel: Codable {
-    
-}
 
-struct FolderModel: Hashable {
-    
-    var id = UUID()
-    var images: [ImageModel] = []
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    static func == (lhs: FolderModel, rhs: FolderModel) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-extension FolderModel: Codable {
-    
-    var json: Data? {
-        return try? JSONEncoder().encode(self)
-    }
-    
-    init?(json: Data) {
-        if let value = try? JSONDecoder().decode(FolderModel.self, from: json) {
-            self = value
-        } else {
-            return nil
-        }
-    }
-    
-}
 
