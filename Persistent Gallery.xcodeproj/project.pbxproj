@@ -374,6 +374,7 @@
 				DEVELOPMENT_TEAM = 4T5J4YM525;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PersistentGallery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Persistent Gallery";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -404,6 +405,7 @@
 				DEVELOPMENT_TEAM = 4T5J4YM525;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PersistentGallery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Persistent Gallery";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

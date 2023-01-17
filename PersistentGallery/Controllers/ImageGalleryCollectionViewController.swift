@@ -101,23 +101,25 @@ extension ImageGalleryCollectionViewController {
         cell.configure(with: imageURL) {
             self.showNoImageAlert(at: indexPath)
         }
-        let imageData = try? Data(contentsOf: imageURL)
-        cell.cellImage = UIImage(data: imageData!)
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            let imageData = try? Data(contentsOf: imageURL)
-//            
-//            DispatchQueue.main.async {
-//                cell.cellImage = UIImage(data: imageData!)
-//            }
-//        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            let imageData = try? Data(contentsOf: imageURL)
+            DispatchQueue.main.async {
+                cell.cellImage = UIImage(data: imageData!)
+            }
+        }
     }
     
     private func openGalleryDocument() {
         galleryDocument?.open { [weak self] success in
             guard success else {
+                print("Document could not open")
                 return
             }
-            self?.imageCollection = (self?.galleryDocument?.gallery)!
+            guard let gallery = self?.galleryDocument?.gallery else {
+                print("Gallery was nil")
+                return
+            }
+            self?.imageCollection = gallery
             self?.title = self?.galleryDocument?.localizedName
             let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
             self?.navigationController?.navigationBar.titleTextAttributes = textAttributes

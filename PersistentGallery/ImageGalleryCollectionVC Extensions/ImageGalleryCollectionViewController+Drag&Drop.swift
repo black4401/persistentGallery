@@ -81,15 +81,16 @@ extension ImageGalleryCollectionViewController {
         }
         
         imageLoadingGroup.notify(queue: DispatchQueue.main) { [weak self] in
-            if image != nil {
-                let aspectRatio = image!.size.height / image!.size.width
+            guard let image = image else { //fix
+                return
+            }
+                let aspectRatio = image.size.height / image.size.width
                 let imageData = ImageModel(url: imageURL!, aspectRatio: aspectRatio)
                 
                 placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
                     self?.imageCollection.images.insert(imageData, at: insertionIndexPath.item)
                     print("Inserting data to model: \(imageData.url)")
                 })
-            }
         }
     }
     
